@@ -32,9 +32,9 @@ namespace Monopoly {
         file >> dice_type;
 
         if (dice_type == "one_dice") {
-            random = new OneDice();
+            random = new OneDice;
         } else if (dice_type == "pre_defined") {
-            random = new PreDefined();
+            random = new PreDefined;
         } else {
             throw MonopolyException("Invalid dice type");
         }
