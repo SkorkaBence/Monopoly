@@ -6,8 +6,9 @@ namespace Monopoly {
     class Player {
     private:
         int money = 0;
-        
+
     public:
+        Player(int start_money);
     };
 
 }
