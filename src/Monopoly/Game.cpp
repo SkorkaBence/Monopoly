@@ -1,5 +1,6 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/MonopolyException.h"
+#include "Monopoly/Randomizer/OneDice.h"
 #include <fstream>
 
 namespace Monopoly {
@@ -9,11 +10,11 @@ namespace Monopoly {
     }
 
     Game::~Game() {
-
+        delete random;
     }
 
     void Game::loadGame(std::string filename) {
-        std::ifstream file(filename);
+        std::ifstream file("games/" + filename + ".mg");
         if (!file.is_open()) {
             throw MonopolyException("File cant be opened");
         }
@@ -22,7 +23,7 @@ namespace Monopoly {
         file >> dice_type;
 
         if (dice_type == "one_dice") {
-
+            random = new OneDice();
         } else {
             throw MonopolyException("Invalid dice type");
         }
