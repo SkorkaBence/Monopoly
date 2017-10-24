@@ -6,6 +6,7 @@
 #include "Monopoly/Randomizer/Randomizer.h"
 #include "Monopoly/Fields/Field.h"
 #include "Monopoly/Player/Player.h"
+#include "Monopoly/Printer/Printer.h"
 
 namespace Monopoly {
 
@@ -16,16 +17,14 @@ namespace Monopoly {
         sbl::vector<Player*> players;
 
         int nextPlayer = 0;
-        unsigned long long tick = 0;
+        int tick = 0;
 
         void loadGame(std::string filename);
     public:
         Game(std::string filename);
         ~Game();
-
         bool gameTick();
-
-        unsigned long long getTicks() const;
+        void printGame(Printer& printer);
     };
 
 }

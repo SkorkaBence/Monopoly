@@ -59,4 +59,13 @@ namespace Monopoly {
         return (!sold) || (owner == me);
     }
 
+    bool Property::isSold() {
+        return sold;
+    }
+
+    bool Property::hasHouse() {
+        return souldHouse;
+    }
+
+
 }

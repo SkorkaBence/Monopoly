@@ -14,10 +14,8 @@ int main() {
         print.writeln("Game Loaded!");
 
         while (game.gameTick()) {
-            //print.printGame(game);
+            game.printGame(print);
         }
-
-        print.writeln("Game finished after " + print.IntToStr(game.getTicks()) + " ticks.");
     } catch (Monopoly::MonopolyException e) {
         print.changeColor(Monopoly::BrightRed);
         print.writeln("Error: " + e.getMessage());

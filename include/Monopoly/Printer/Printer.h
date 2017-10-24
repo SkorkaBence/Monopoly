@@ -2,7 +2,7 @@
 #define H_MONOPOLY_PRINTER
 
 #include <string>
-#include "Monopoly/Game.h"
+#include <sstream>
 
 namespace Monopoly {
 
@@ -32,12 +32,18 @@ namespace Monopoly {
         Printer();
         ~Printer();
         void changeColor(ConsoleColors color);
+        void resetColor();
         void write(std::string str);
         void writeln(std::string str);
         void rainbow(std::string str);
-        void printGame(const Game& game);
-        std::string IntToStr(int a);
     };
+
+    template<typename T>
+    std::string toStr(T a) {
+        std::stringstream ss;
+        ss << a;
+        return ss.str();
+    }
 }
 
 #endif

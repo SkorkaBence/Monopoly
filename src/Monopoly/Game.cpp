@@ -139,8 +139,78 @@ namespace Monopoly {
         return true;
     }
 
-    unsigned long long Game::getTicks() const {
-        return tick;
+    void Game::printGame(Printer& printer) {
+        printer.writeln("Tick " + toStr(tick) + ":");
+
+        int max_cells = 5;
+
+        sbl::vector<sbl::vector<std::string> > strings;
+        strings.resize(fields.size());
+
+        for (int i = 0; i < fields.size(); i++) {
+
+            std::string line_0 = "UNKNOWN FI";
+            std::string line_1 = "";
+            std::string line_2 = "";
+            std::string line_3 = "";
+
+
+            if(Property* v = dynamic_cast<Property*>(fields[i])) {
+                line_0 = "PROPERTY";
+                line_3 = "-" + toStr(v->getUpgradePrice()) + "/" + toStr(v->moneyChange());
+                if (v->isSold()) {
+                    line_2 = "SOLD";
+                    if (v->hasHouse()) {
+                        line_2 += " + HSE";
+                    }
+                }
+            }
+            if(Service* v = dynamic_cast<Service*>(fields[i])) {
+                line_0 = "SERVICE";
+                line_3 = "-" + toStr(v->getServiceFee());
+            }
+            if(Luck* v = dynamic_cast<Luck*>(fields[i])) {
+                line_0 = "LUCK";
+                line_3 = "+" + toStr(v->getGift());
+            }
+
+            line_1 = "";
+            for (int j = 0; j < players.size(); j++) {
+                if (players[j]->getCurrentPosition() == i) {
+                    line_1 += "(" + toStr(j) + ")";
+                }
+            }
+
+            strings[i].push_back(line_0);
+            strings[i].push_back(line_1);
+            strings[i].push_back(line_2);
+            strings[i].push_back(line_3);
+        }
+
+        sbl::vector<std::string> lines;
+        lines.resize(6);
+
+        for (int i = 0; i < strings.size(); i++) {
+            lines[0] += "/----------\\";
+            for (int j = 0; j < strings[i].size(); j++) {
+                std::string ls = strings[i][j];
+                int jobb = true;
+                while (ls.length() < 10) {
+                    if (jobb) {
+                        ls = ls + " ";
+                    } else {
+                        ls = " " + ls;
+                    }
+                    jobb = !jobb;
+                }
+                lines[j + 1] += "|" + ls + "|";
+            }
+            lines[5] += "\\----------/";
+        }
+
+        for (int i = 0; i < lines.size(); i++) {
+            printer.writeln(lines[i]);
+        }
     }
 
 }
