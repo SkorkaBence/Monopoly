@@ -36,6 +36,7 @@ namespace Monopoly {
         void write(std::string str);
         void writeln(std::string str);
         void rainbow(std::string str);
+        std::string getPrintChar(ConsoleColors color);
     };
 
     template<typename T>

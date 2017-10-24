@@ -143,6 +143,7 @@ namespace Monopoly {
         printer.writeln("Tick " + toStr(tick) + ":");
 
         int max_cells = 5;
+        int cell_width = 20;
 
         sbl::vector<sbl::vector<std::string> > strings;
         strings.resize(fields.size());
@@ -154,15 +155,15 @@ namespace Monopoly {
             std::string line_2 = "";
             std::string line_3 = "";
 
-
             if(Property* v = dynamic_cast<Property*>(fields[i])) {
                 line_0 = "PROPERTY";
                 line_3 = "-" + toStr(v->getUpgradePrice()) + "/" + toStr(v->moneyChange());
                 if (v->isSold()) {
-                    line_2 = "SOLD";
+                    /*line_2 = "SOLD";
                     if (v->hasHouse()) {
                         line_2 += " + HSE";
-                    }
+                    }*/
+                    line_2 = v->getOnwer()->getName();
                 }
             }
             if(Service* v = dynamic_cast<Service*>(fields[i])) {
@@ -176,36 +177,58 @@ namespace Monopoly {
 
             line_1 = "";
             for (int j = 0; j < players.size(); j++) {
-                if (players[j]->getCurrentPosition() == i) {
-                    line_1 += "(" + toStr(j) + ")";
+                if (players[j]->isStillPlaying()) {
+                    if (players[j]->getCurrentPosition() == i) {
+                        line_1 += "(" + players[j]->getName() + ")";
+                    }
                 }
             }
 
-            strings[i].push_back(line_0);
-            strings[i].push_back(line_1);
-            strings[i].push_back(line_2);
-            strings[i].push_back(line_3);
+            strings[i].push_back(printer.getPrintChar(BrightRed) + line_0 + printer.getPrintChar(White));
+            strings[i].push_back(printer.getPrintChar(BrightBlue) + line_1 + printer.getPrintChar(White));
+            strings[i].push_back(printer.getPrintChar(BrightYellow) + line_2 + printer.getPrintChar(White));
+            strings[i].push_back(printer.getPrintChar(Red) + line_3 + printer.getPrintChar(White));
         }
 
         sbl::vector<std::string> lines;
-        lines.resize(6);
 
-        for (int i = 0; i < strings.size(); i++) {
-            lines[0] += "/----------\\";
-            for (int j = 0; j < strings[i].size(); j++) {
-                std::string ls = strings[i][j];
-                int jobb = true;
-                while (ls.length() < 10) {
-                    if (jobb) {
-                        ls = ls + " ";
-                    } else {
-                        ls = " " + ls;
-                    }
-                    jobb = !jobb;
-                }
-                lines[j + 1] += "|" + ls + "|";
+        int line_index_start = 0;
+        int string_indexing_starts = 0;
+
+        while (string_indexing_starts < strings.size()) {
+            lines.resize(lines.size() + 6);
+            int limit = string_indexing_starts + max_cells;
+            if (limit > strings.size()) {
+                limit = strings.size();
             }
-            lines[5] += "\\----------/";
+            for (int i = string_indexing_starts; i < limit; i++) {
+                lines[line_index_start] += "/";
+                for (int k = 0; k < cell_width; k++) {
+                    lines[line_index_start] += "-";
+                }
+                lines[line_index_start] += "\\";
+                for (int j = 0; j < strings[i].size(); j++) {
+                    std::string ls = strings[i][j];
+                    int jobb = true;
+                    while (ls.length() < cell_width + 14) {
+                        if (jobb) {
+                            ls = ls + " ";
+                        } else {
+                            ls = " " + ls;
+                        }
+                        jobb = !jobb;
+                    }
+                    //ls += toStr(ls.length());
+                    lines[line_index_start + j + 1] += "|" + ls + "|";
+                }
+                lines[line_index_start + 5] += "\\";
+                for (int k = 0; k < cell_width; k++) {
+                    lines[line_index_start + 5] += "-";
+                }
+                lines[line_index_start + 5] += "/";
+            }
+            string_indexing_starts += max_cells;
+            line_index_start += 6;
         }
 
         for (int i = 0; i < lines.size(); i++) {

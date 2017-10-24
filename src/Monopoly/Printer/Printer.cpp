@@ -1,6 +1,7 @@
 #include "Monopoly/Printer/Printer.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 
 namespace Monopoly {
 
@@ -40,6 +41,27 @@ namespace Monopoly {
 
     void Printer::writeln(std::string str) {
         std::cout << str << std::endl;
+    }
+
+    std::string Printer::getPrintChar(ConsoleColors color) {
+        char buffer[50];
+        if (color == 100) {
+            // invalid
+        } else if (color >= 100) {
+            // bright
+            int cm = color - 100;
+            std::string str = "%c[1;" + toStr(cm) + "m";
+            const char * c = str.c_str();
+            sprintf(buffer, c, 27);
+        } else {
+            // normal
+            int cm = color;
+            std::string str = "%c[0;" + toStr(cm) + "m";
+            const char * c = str.c_str();
+            sprintf(buffer, c, 27);
+        }
+        std::string str(buffer);
+        return buffer;
     }
 
 }
