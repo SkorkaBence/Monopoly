@@ -1,6 +1,7 @@
 temp/*
 *.zip
 run
+examples/*
 
 # Prerequisites
 *.d
