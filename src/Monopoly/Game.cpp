@@ -1,9 +1,11 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/MonopolyException.h"
 #include "Monopoly/Randomizer/OneDice.h"
+#include "Monopoly/Fields/Field.h"
 #include "Monopoly/Fields/Property.h"
 #include "Monopoly/Fields/Service.h"
 #include "Monopoly/Fields/Luck.h"
+#include "Monopoly/Player/Player.h"
 #include <fstream>
 
 namespace Monopoly {
@@ -30,6 +32,9 @@ namespace Monopoly {
         } else {
             throw MonopolyException("Invalid dice type");
         }
+
+        int starting_money;
+        file >> starting_money;
 
         int fields_length;
         file >> fields_length;
@@ -69,6 +74,9 @@ namespace Monopoly {
             file >> name;
             std::string type;
             file >> type;
+
+            Player* player = new Player(starting_money);
+
             if (type == "greedy") {
 
             } else if (type == "careful") {
