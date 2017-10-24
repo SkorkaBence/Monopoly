@@ -113,6 +113,17 @@ namespace Monopoly {
         }
         currentPlayer->stepTo(newpos, fields[newpos]);
 
+        if (!currentPlayer->isStillPlaying()) {
+            // kiesett a jatekbol
+            for (int i = 0; i < fields.size(); i++) {
+                if(Property* v = dynamic_cast<Property*>(fields[i])) {
+                    if (v->isMine(currentPlayer)) {
+                        v->reset();
+                    }
+                }
+            }
+        }
+
         bool cpi = nextPlayer;
 
         do {

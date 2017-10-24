@@ -3,11 +3,14 @@
 
 #include "Monopoly/Fields/Field.h"
 #include "Storage/Vector.h"
+#include "Monopoly/Player/Player.h"
 #include <iostream>
 
 namespace Monopoly {
     class Property : public Field {
     private:
+        Player* owner = nullptr;
+
         int price;
         int housePrice;
         int basicTrespassingFee;
@@ -20,7 +23,9 @@ namespace Monopoly {
         void loadField(std::istream& in);
         int moneyChange();
         int getUpgradePrice();
-        void buy();
+        void buy(Player* buyer);
+        void reset();
+        bool isMine(Player* me);
     };
 
 }

@@ -38,14 +38,25 @@ namespace Monopoly {
         }
     }
 
-    void Property::buy() {
+    void Property::buy(Player* buyer) {
         if (!sold) {
+            owner = buyer;
             sold = true;
         } else if (!souldHouse) {
             souldHouse = true;
         } else {
             throw MonopolyException("Invalid purchase");
         }
+    }
+
+    void Property::reset() {
+        sold = false;
+        owner = nullptr;
+        souldHouse = false;
+    }
+
+    bool Property::isMine(Player* me) {
+        return (!sold) || (owner == me);
     }
 
 }

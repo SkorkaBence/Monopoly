@@ -26,16 +26,20 @@ namespace Monopoly {
 
     void Player::stepTo(int pos, Field* field) {
         position = pos;
-        money += field->moneyChange();
+        int moneychange = field->moneyChange();
+        money += moneychange;
 
         if(Property* v = dynamic_cast<Property*>(field)) {
-            int upgradePrice = v->getUpgradePrice();
-            if (upgradePrice > 0) {
-                // upgradable
-                if (brain != nullptr) {
-                    if (brain->confirmPurchase(upgradePrice)) {
-                        v->buy();
-                        money -= upgradePrice;
+            if (v->isMine(this)) {
+                money -= moneychange;
+                int upgradePrice = v->getUpgradePrice();
+                if (upgradePrice > 0) {
+                    // upgradable
+                    if (brain != nullptr) {
+                        if (brain->confirmPurchase(upgradePrice)) {
+                            v->buy(this);
+                            money -= upgradePrice;
+                        }
                     }
                 }
             }
