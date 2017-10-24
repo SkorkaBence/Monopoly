@@ -19,6 +19,8 @@ namespace Monopoly {
     public:
         Game(std::string filename);
         ~Game();
+
+        bool gameTick();
     };
 
 }

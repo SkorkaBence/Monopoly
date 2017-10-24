@@ -7,11 +7,15 @@
 int main() {
     Monopoly::Printer print;
 
-    print.changeColor(Monopoly::BrightGreen);
-    print.writeln("Hello World");
+    print.writeln("Loading game...");
 
     try {
         Monopoly::Game game("testgame");
+        print.writeln("Game Loaded!");
+
+        while (game.gameTick()) {
+            print.printGame(game);
+        }
     } catch (Monopoly::MonopolyException e) {
         print.changeColor(Monopoly::BrightRed);
         print.writeln("Error: " + e.getMessage());

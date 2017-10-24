@@ -75,10 +75,10 @@ namespace Monopoly {
             std::string type;
             file >> type;
 
-            Player* player = new Player(starting_money);
+            Player* player = new Player(name, starting_money);
 
             if (type == "greedy") {
-
+                //player.setBrain(new );
             } else if (type == "careful") {
 
             } else if (type == "tactician") {
@@ -89,6 +89,10 @@ namespace Monopoly {
                 throw MonopolyException("Invalid AI type");
             }
         }
+    }
+
+    bool Game::gameTick() {
+        return false;
     }
 
 }
