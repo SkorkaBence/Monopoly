@@ -27,7 +27,8 @@ namespace Monopoly {
     };
 
     class Printer {
-
+    private:
+        bool enableColors = true;
     public:
         Printer();
         ~Printer();
@@ -36,7 +37,10 @@ namespace Monopoly {
         void write(std::string str);
         void writeln(std::string str);
         void rainbow(std::string str);
-        std::string getPrintChar(ConsoleColors color);
+        std::string getColorChar(ConsoleColors color);
+        int colorCharLength();
+
+        void setColorEnabled(bool status);
     };
 
     template<typename T>

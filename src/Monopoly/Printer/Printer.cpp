@@ -43,7 +43,10 @@ namespace Monopoly {
         std::cout << str << std::endl;
     }
 
-    std::string Printer::getPrintChar(ConsoleColors color) {
+    std::string Printer::getColorChar(ConsoleColors color) {
+        if (!enableColors) {
+            return "";
+        }
         char buffer[50];
         if (color == 100) {
             // invalid
@@ -62,6 +65,18 @@ namespace Monopoly {
         }
         std::string str(buffer);
         return buffer;
+    }
+
+    int Printer::colorCharLength() {
+        if (enableColors) {
+            return 7;
+        } else {
+            return 0;
+        }
+    }
+
+    void Printer::setColorEnabled(bool status) {
+        enableColors = status;
     }
 
 }
