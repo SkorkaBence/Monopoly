@@ -8,6 +8,10 @@ namespace Monopoly {
         srand(time(NULL));
     }
 
+    void OneDice::loadRandomizer(std::istream& in) {
+
+    }
+
     int OneDice::DiceRoll() {
         return rand() % 6 + 1;
     }

@@ -4,7 +4,7 @@ TEMPDIR = temp
 CXX     = g++
 CFLAGS  = -I$(IDIR) -std=c++11
 LDFLAGS = -I$(IDIR) -std=c++11
-FILES   = main.cpp Storage/Vector.cpp Storage/VectorException.cpp Monopoly/MonopolyException.cpp Monopoly/Game.cpp Monopoly/Printer/Printer.cpp Monopoly/Randomizer/OneDice.cpp Monopoly/Fields/Property.cpp Monopoly/Fields/Service.cpp Monopoly/Fields/Luck.cpp Monopoly/Player/Player.cpp Monopoly/Player/AI/AI.cpp Monopoly/Player/AI/Greedy.cpp Monopoly/Player/AI/Careful.cpp Monopoly/Player/AI/Tactician.cpp
+FILES   = main.cpp Storage/Vector.cpp Storage/VectorException.cpp Monopoly/MonopolyException.cpp Monopoly/Game.cpp Monopoly/Printer/Printer.cpp Monopoly/Randomizer/OneDice.cpp Monopoly/Randomizer/PreDefined.cpp Monopoly/Fields/Property.cpp Monopoly/Fields/Service.cpp Monopoly/Fields/Luck.cpp Monopoly/Player/Player.cpp Monopoly/Player/AI/AI.cpp Monopoly/Player/AI/Greedy.cpp Monopoly/Player/AI/Careful.cpp Monopoly/Player/AI/Tactician.cpp
 TARGET  = run
 SOURCES = $(patsubst %,$(SRC)/%,$(FILES))
 OBJECTS = $(patsubst %.cpp,$(TEMPDIR)/%.o,$(FILES))
