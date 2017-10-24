@@ -13,6 +13,8 @@ namespace Monopoly {
         Randomizer* random = nullptr;
         sbl::vector<Field> fields;
         sbl::vector<Player> players;
+
+        void loadGame(std::string filename);
     public:
         Game(std::string filename);
         ~Game();

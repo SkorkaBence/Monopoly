@@ -5,6 +5,14 @@
 namespace Monopoly {
 
     Game::Game(std::string filename) {
+        loadGame(filename);
+    }
+
+    Game::~Game() {
+
+    }
+
+    void Game::loadGame(std::string filename) {
         std::ifstream file(filename);
         if (!file.is_open()) {
             throw MonopolyException("File cant be opened");
@@ -63,10 +71,6 @@ namespace Monopoly {
                 throw MonopolyException("Invalid AI type");
             }
         }
-    }
-
-    Game::~Game() {
-
     }
 
 }
