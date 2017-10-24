@@ -6,6 +6,9 @@
 #include "Monopoly/Fields/Service.h"
 #include "Monopoly/Fields/Luck.h"
 #include "Monopoly/Player/Player.h"
+#include "Monopoly/Player/AI/Greedy.h"
+#include "Monopoly/Player/AI/Careful.h"
+#include "Monopoly/Player/AI/Tactician.h"
 #include <fstream>
 
 namespace Monopoly {
@@ -83,13 +86,13 @@ namespace Monopoly {
             Player* player = new Player(name, starting_money);
 
             if (type == "greedy") {
-                //player.setBrain(new );
+                player->setBrain(new Greedy);
             } else if (type == "careful") {
-
+                player->setBrain(new Careful);
             } else if (type == "tactician") {
-
-            } else if (type == "human") {
-
+                player->setBrain(new Tactician);
+            //} else if (type == "human") {
+            //    player->setBrain(new Human);
             } else {
                 throw MonopolyException("Invalid AI type");
             }

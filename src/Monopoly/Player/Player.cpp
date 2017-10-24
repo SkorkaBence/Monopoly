@@ -1,4 +1,5 @@
 #include "Monopoly/Player/Player.h"
+#include "Monopoly/Fields/Property.h"
 
 namespace Monopoly {
 
@@ -20,11 +21,25 @@ namespace Monopoly {
 
     void Player::setBrain(AI* aiptr) {
         brain = aiptr;
+        brain->clearSpendings(money);
     }
 
     void Player::stepTo(int pos, Field* field) {
         position = pos;
         money += field->moneyChange();
+
+        if(Property* v = dynamic_cast<Property*>(field)) {
+            int upgradePrice = v->getUpgradePrice();
+            if (upgradePrice > 0) {
+                // upgradable
+                if (brain != nullptr) {
+                    if (brain->confirmPurchase(upgradePrice)) {
+                        v->buy();
+                        money -= upgradePrice;
+                    }
+                }
+            }
+        }
 
         if (money < 0) {
             isPlaying = false;
@@ -40,7 +55,9 @@ namespace Monopoly {
     }
 
     void Player::finishedRound() {
-
+        if (brain != nullptr) {
+            brain->clearSpendings(money);
+        }
     }
 
 }

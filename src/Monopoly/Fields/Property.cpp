@@ -1,4 +1,5 @@
 #include "Monopoly/Fields/Property.h"
+#include "Monopoly/MonopolyException.h"
 
 namespace Monopoly {
 
@@ -22,6 +23,28 @@ namespace Monopoly {
             }
         } else {
             return 0;
+        }
+    }
+
+    int Property::getUpgradePrice() {
+        if (sold) {
+            if (souldHouse) {
+                return 0;
+            } else {
+                return housePrice;
+            }
+        } else {
+            return price;
+        }
+    }
+
+    void Property::buy() {
+        if (!sold) {
+            sold = true;
+        } else if (!souldHouse) {
+            souldHouse = true;
+        } else {
+            throw MonopolyException("Invalid purchase");
         }
     }
 

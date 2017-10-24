@@ -5,5 +5,5 @@ service 500
 luck 1500
 10000
 2
-Bence human
-Szamitogep greedy
+CarefulAI careful
+GreedyAI greedy

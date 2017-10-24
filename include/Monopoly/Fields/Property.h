@@ -19,6 +19,8 @@ namespace Monopoly {
         Property();
         void loadField(std::istream& in);
         int moneyChange();
+        int getUpgradePrice();
+        void buy();
     };
 
 }

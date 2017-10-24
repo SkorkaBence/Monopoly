@@ -10,6 +10,7 @@ namespace Monopoly {
     public:
         void spendMoney(int mn);
         void clearSpendings(int money);
+        virtual bool confirmPurchase(int price) = 0;
     };
 
 }
