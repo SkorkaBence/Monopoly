@@ -4,8 +4,12 @@
 namespace Monopoly {
 
     class AI {
-    private:
+    protected:
+        int moneyAtRoundStart = 0;
+        int moneySpent = 0;
     public:
+        void spendMoney(int mn);
+        void clearSpendings(int money);
     };
 
 }
