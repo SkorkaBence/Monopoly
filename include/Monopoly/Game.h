@@ -15,12 +15,17 @@ namespace Monopoly {
         sbl::vector<Field*> fields;
         sbl::vector<Player*> players;
 
+        int nextPlayer = 0;
+        unsigned long long tick = 0;
+
         void loadGame(std::string filename);
     public:
         Game(std::string filename);
         ~Game();
 
         bool gameTick();
+
+        unsigned long long getTicks() const;
     };
 
 }

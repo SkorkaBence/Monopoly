@@ -33,11 +33,12 @@ namespace Monopoly {
             throw MonopolyException("Invalid dice type");
         }
 
-        int starting_money;
-        file >> starting_money;
-
         int fields_length;
         file >> fields_length;
+
+        if (fields_length < 1) {
+            throw MonopolyException("Not enough fields");
+        }
 
         fields.resize(fields_length);
 
@@ -61,11 +62,15 @@ namespace Monopoly {
             fields[i] = field;
         }
 
-        int start_money;
-        file >> start_money;
+        int starting_money;
+        file >> starting_money;
 
         int player_number;
         file >> player_number;
+
+        if (player_number < 1) {
+            throw MonopolyException("Not enough players");
+        }
 
         players.resize(player_number);
 
@@ -88,11 +93,40 @@ namespace Monopoly {
             } else {
                 throw MonopolyException("Invalid AI type");
             }
+
+            players[i] = player;
         }
     }
 
     bool Game::gameTick() {
-        return false;
+        tick++;
+
+        Player* currentPlayer = players[nextPlayer];
+        int diceRoll = random->DiceRoll();
+        int newpos = currentPlayer->getCurrentPosition() + diceRoll;
+        while (newpos >= fields.size()) {
+            currentPlayer->finishedRound();
+            newpos -= fields.size();
+        }
+        currentPlayer->stepTo(newpos, fields[newpos]);
+
+        bool cpi = nextPlayer;
+
+        do {
+            nextPlayer++;
+            while (nextPlayer >= players.size()) {
+                nextPlayer -= players.size();
+            }
+            if (cpi == nextPlayer) {
+                return false;
+            }
+        } while (!players[nextPlayer]->isStillPlaying());
+
+        return true;
+    }
+
+    unsigned long long Game::getTicks() const {
+        return tick;
     }
 
 }
