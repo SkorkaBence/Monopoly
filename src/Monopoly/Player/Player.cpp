@@ -22,4 +22,25 @@ namespace Monopoly {
         brain = aiptr;
     }
 
+    void Player::stepTo(int pos, Field* field) {
+        position = pos;
+        money += field->moneyChange();
+
+        if (money < 0) {
+            isPlaying = false;
+        }
+    }
+
+    int Player::getCurrentPosition() {
+        return position;
+    }
+
+    bool Player::isStillPlaying() {
+        return isPlaying;
+    }
+
+    void Player::finishedRound() {
+
+    }
+
 }
