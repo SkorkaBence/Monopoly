@@ -4,7 +4,7 @@ TEMPDIR = temp
 CXX     = g++
 CFLAGS  = -I$(IDIR) -std=c++11
 LDFLAGS = -I$(IDIR) -std=c++11
-FILES   = main.cpp Monopoly/Game.cpp Monopoly/Printer/Printer.cpp Monopoly/Randomizer/OneDice.cpp
+FILES   = main.cpp Monopoly/MonopolyException.cpp Monopoly/Game.cpp Monopoly/Printer/Printer.cpp Monopoly/Randomizer/OneDice.cpp
 TARGET  = run
 SOURCES = $(patsubst %,$(SRC)/%,$(FILES))
 OBJECTS = $(patsubst %.cpp,$(TEMPDIR)/%.o,$(FILES))

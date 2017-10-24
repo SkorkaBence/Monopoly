@@ -2,11 +2,11 @@
 
 namespace Monopoly {
 
-    MonopolyException::MonopolyException(std::string msg) message(msg) {
+    MonopolyException::MonopolyException(std::string msg) : message(msg) {
     }
 
     std::string MonopolyException::getMessage() {
-        return msg;
+        return message;
     }
 
 }

@@ -1,6 +1,7 @@
 #ifndef H_MONOPOLY_GAME
 #define H_MONOPOLY_GAME
 
+#include "Monopoly/MonopolyException.h"
 #include "Storage/Vector.h"
 #include "Monopoly/Randomizer/Randomizer.h"
 #include "Monopoly/Fields/Field.h"
