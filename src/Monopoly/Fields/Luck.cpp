@@ -1,0 +1,13 @@
+#include "Monopoly/Fields/Luck.h"
+
+namespace Monopoly {
+
+    Luck::Luck() {
+
+    }
+
+    void Luck::loadField(std::istream& in) {
+        in >> price;
+    }
+
+}

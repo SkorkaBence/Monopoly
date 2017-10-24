@@ -7,7 +7,7 @@ namespace Monopoly {
 
     class Field {
     public:
-        virtual void loadField(std::istream in) = 0;
+        virtual void loadField(std::istream& in) = 0;
     };
 
 }

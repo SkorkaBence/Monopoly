@@ -1,6 +1,9 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/MonopolyException.h"
 #include "Monopoly/Randomizer/OneDice.h"
+#include "Monopoly/Fields/Property.h"
+#include "Monopoly/Fields/Service.h"
+#include "Monopoly/Fields/Luck.h"
 #include <fstream>
 
 namespace Monopoly {
@@ -36,15 +39,21 @@ namespace Monopoly {
         for (int i = 0; i < fields_length; i++) {
             std::string type;
             file >> type;
+
+            Field* field;
+
             if (type == "property") {
-
+                field = new Property;
             } else if (type == "service") {
-
+                field = new Service;
             } else if (type == "luck") {
-
+                field = new Luck;
             } else {
                 throw MonopolyException("Invalid field type");
             }
+
+            field->loadField(file);
+            fields[i] = field;
         }
 
         int start_money;
