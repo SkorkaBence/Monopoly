@@ -5,7 +5,7 @@
 
 namespace Monopoly {
 
-    class OneDice : Randomizer {
+    class OneDice : public Randomizer {
     public:
         OneDice();
         int DiceRoll();
