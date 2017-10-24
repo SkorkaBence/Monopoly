@@ -1,6 +1,7 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/MonopolyException.h"
 #include "Monopoly/Randomizer/OneDice.h"
+#include "Monopoly/Randomizer/PreDefined.h"
 #include "Monopoly/Fields/Field.h"
 #include "Monopoly/Fields/Property.h"
 #include "Monopoly/Fields/Service.h"
@@ -32,9 +33,13 @@ namespace Monopoly {
 
         if (dice_type == "one_dice") {
             random = new OneDice();
+        } else if (dice_type == "pre_defined") {
+            random = new PreDefined();
         } else {
             throw MonopolyException("Invalid dice type");
         }
+
+        random->loadRandomizer(file);
 
         int fields_length;
         file >> fields_length;
@@ -184,10 +189,10 @@ namespace Monopoly {
                 }
             }
 
-            strings[i].push_back(printer.getPrintChar(BrightRed) + line_0 + printer.getPrintChar(White));
-            strings[i].push_back(printer.getPrintChar(BrightBlue) + line_1 + printer.getPrintChar(White));
-            strings[i].push_back(printer.getPrintChar(BrightYellow) + line_2 + printer.getPrintChar(White));
-            strings[i].push_back(printer.getPrintChar(Red) + line_3 + printer.getPrintChar(White));
+            strings[i].push_back(printer.getColorChar(BrightRed) + line_0 + printer.getColorChar(White));
+            strings[i].push_back(printer.getColorChar(BrightBlue) + line_1 + printer.getColorChar(White));
+            strings[i].push_back(printer.getColorChar(BrightYellow) + line_2 + printer.getColorChar(White));
+            strings[i].push_back(printer.getColorChar(Red) + line_3 + printer.getColorChar(White));
         }
 
         sbl::vector<std::string> lines;
@@ -210,7 +215,7 @@ namespace Monopoly {
                 for (int j = 0; j < strings[i].size(); j++) {
                     std::string ls = strings[i][j];
                     int jobb = true;
-                    while (ls.length() < cell_width + 14) {
+                    while (ls.length() < cell_width + 2 * printer.colorCharLength()) {
                         if (jobb) {
                             ls = ls + " ";
                         } else {
