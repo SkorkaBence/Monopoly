@@ -6,6 +6,8 @@
 namespace Monopoly {
 
     class Tactician : public AI {
+    private:
+        int purchasenum = 0;
     public:
         bool confirmPurchase(int price);
     };
