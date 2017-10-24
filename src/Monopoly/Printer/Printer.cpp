@@ -46,7 +46,7 @@ namespace Monopoly {
     }
 
     void Printer::printGame(const Game& game) {
-
+        writeln("Tick " + IntToStr(game.getTicks()) + "...");
     }
 
 }
