@@ -45,5 +45,8 @@ namespace Monopoly {
         return ss.str();
     }
 
+    void Printer::printGame(const Game& game) {
+
+    }
 
 }

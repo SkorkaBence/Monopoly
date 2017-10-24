@@ -2,6 +2,7 @@
 #define H_MONOPOLY_PRINTER
 
 #include <string>
+#include "Monopoly/Game.h"
 
 namespace Monopoly {
 
@@ -34,6 +35,7 @@ namespace Monopoly {
         void write(std::string str);
         void writeln(std::string str);
         void rainbow(std::string str);
+        void printGame(const Game& game);
         std::string IntToStr(int a);
     };
 }
