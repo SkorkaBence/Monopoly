@@ -12,6 +12,8 @@ namespace Monopoly {
     public:
         Luck();
         void loadField(std::istream& in);
+
+        int getGift();
     };
 
 }

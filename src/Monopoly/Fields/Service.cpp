@@ -10,4 +10,8 @@ namespace Monopoly {
         in >> price;
     }
 
+    int Service::getServiceFee() {
+        return price;
+    }
+
 }

@@ -10,4 +10,8 @@ namespace Monopoly {
         in >> price;
     }
 
+    int Luck::getGift() {
+        return price;
+    }
+
 }
