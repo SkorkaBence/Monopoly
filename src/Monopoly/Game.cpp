@@ -1,0 +1,72 @@
+#include "Monopoly/Game.h"
+#include "Monopoly/MonopolyException.h"
+#include <fstream>
+
+namespace Monopoly {
+
+    Game::Game(std::string filename) {
+        std::ifstream file(filename);
+        if (!file.is_open()) {
+            throw MonopolyException("File cant be opened");
+        }
+
+        std::string dice_type;
+        file >> dice_type;
+
+        if (dice_type == "one_dice") {
+
+        } else {
+            throw MonopolyException("Invalid dice type");
+        }
+
+        int fields_length;
+        file >> fields_length;
+
+        fields.resize(fields_length);
+
+        for (int i = 0; i < fields_length; i++) {
+            std::string type;
+            file >> type;
+            if (type == "property") {
+
+            } else if (type == "service") {
+
+            } else if (type == "luck") {
+
+            } else {
+                throw MonopolyException("Invalid field type");
+            }
+        }
+
+        int start_money;
+        file >> start_money;
+
+        int player_number;
+        file >> player_number;
+
+        players.resize(player_number);
+
+        for (int i = 0; i < player_number; i++) {
+            std::string name;
+            file >> name;
+            std::string type;
+            file >> type;
+            if (type == "greedy") {
+
+            } else if (type == "careful") {
+
+            } else if (type == "tactician") {
+
+            } else if (type == "human") {
+
+            } else {
+                throw MonopolyException("Invalid AI type");
+            }
+        }
+    }
+
+    Game::~Game() {
+
+    }
+
+}
