@@ -14,4 +14,8 @@ namespace Monopoly {
         return price;
     }
 
+    int Luck::moneyChange() {
+        return price;
+    }
+
 }

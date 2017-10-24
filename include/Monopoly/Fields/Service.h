@@ -14,6 +14,7 @@ namespace Monopoly {
         void loadField(std::istream& in);
 
         int getServiceFee();
+        int moneyChange();
     };
 
 }

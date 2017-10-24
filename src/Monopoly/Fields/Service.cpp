@@ -14,4 +14,8 @@ namespace Monopoly {
         return price;
     }
 
+    int Service::moneyChange() {
+        return -1 * price;
+    }
+
 }

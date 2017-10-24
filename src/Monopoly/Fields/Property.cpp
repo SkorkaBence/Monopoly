@@ -13,4 +13,16 @@ namespace Monopoly {
         in >> houseTrespassingFee;
     }
 
+    int Property::moneyChange() {
+        if (sold) {
+            if (souldHouse) {
+                return -1 * houseTrespassingFee;
+            } else {
+                return -1 * basicTrespassingFee;
+            }
+        } else {
+            return 0;
+        }
+    }
+
 }
