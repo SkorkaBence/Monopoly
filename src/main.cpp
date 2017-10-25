@@ -20,7 +20,7 @@ int main() {
     gyozelmek["Greedy"] = 0;
     gyozelmek["Tacti"] = 0;
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 1000000; i++) {
         try {
             Monopoly::Game game("testgame");
             while (game.gameTick()) {}
@@ -48,7 +48,8 @@ int main() {
         print.writeln(it->first + ": " + Monopoly::toStr(it->second));
     }
 
-    /*try {
+    /*
+    try {
         Monopoly::Game game("testgame");
         print.writeln("Game Loaded!");
 
@@ -66,5 +67,6 @@ int main() {
     } catch (Monopoly::MonopolyException e) {
         print.changeColor(Monopoly::BrightRed);
         print.writeln("Error: " + e.getMessage());
-    }*/
+    }
+    */
 }
