@@ -168,7 +168,7 @@ namespace Monopoly {
                     if (v->hasHouse()) {
                         line_2 += " + HSE";
                     }*/
-                    line_2 = v->getOnwer()->getName();
+                    line_2 = v->getOwner()->getName();
                 }
             }
             if(Service* v = dynamic_cast<Service*>(fields[i])) {
@@ -192,7 +192,7 @@ namespace Monopoly {
             strings[i].push_back(printer.getColorChar(BrightRed) + line_0 + printer.getColorChar(White));
             strings[i].push_back(printer.getColorChar(BrightBlue) + line_1 + printer.getColorChar(White));
             strings[i].push_back(printer.getColorChar(BrightYellow) + line_2 + printer.getColorChar(White));
-            strings[i].push_back(printer.getColorChar(Red) + line_3 + printer.getColorChar(White));
+            strings[i].push_back(printer.getColorChar(BrightCyan) + line_3 + printer.getColorChar(White));
         }
 
         sbl::vector<std::string> lines;

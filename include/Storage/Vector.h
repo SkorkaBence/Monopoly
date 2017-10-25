@@ -84,7 +84,7 @@ namespace sbl {
                 }
                 deleteArray();
             }
-            
+
             reserved_size = ns;
             real_size = ns;
             arr = newarr;

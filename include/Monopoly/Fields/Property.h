@@ -28,7 +28,7 @@ namespace Monopoly {
         bool isMine(Player* me);
         bool isSold();
         bool hasHouse();
-        Player* getOnwer();
+        Player* getOwner();
     };
 
 }

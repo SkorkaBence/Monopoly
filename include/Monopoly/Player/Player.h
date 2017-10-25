@@ -25,6 +25,7 @@ namespace Monopoly {
         int getCurrentPosition();
         bool isStillPlaying();
         void finishedRound();
+        void changeMoney(int add);
     };
 
 }

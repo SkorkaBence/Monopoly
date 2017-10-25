@@ -30,8 +30,10 @@ namespace Monopoly {
         money += moneychange;
 
         if(Property* v = dynamic_cast<Property*>(field)) {
+            if (moneychange > 0) {
+                v->getOwner()->changeMoney(-moneychange);
+            }
             if (v->isMine(this)) {
-                money -= moneychange;
                 int upgradePrice = v->getUpgradePrice();
                 if (upgradePrice > 0) {
                     // upgradable
@@ -62,6 +64,10 @@ namespace Monopoly {
         if (brain != nullptr) {
             brain->clearSpendings(money);
         }
+    }
+
+    void Player::changeMoney(int add) {
+        money += add;
     }
 
 }

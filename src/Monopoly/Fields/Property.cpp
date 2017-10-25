@@ -67,7 +67,7 @@ namespace Monopoly {
         return souldHouse;
     }
 
-    Player* Property::getOnwer() {
+    Player* Property::getOwner() {
         return owner;
     }
 
