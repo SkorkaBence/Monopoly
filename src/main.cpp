@@ -7,6 +7,8 @@
 int main() {
     Monopoly::Printer print;
 
+    print.setColorEnabled(false);
+
     print.writeln("Loading game...");
 
     try {

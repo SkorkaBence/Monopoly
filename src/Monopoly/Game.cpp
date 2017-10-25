@@ -129,7 +129,7 @@ namespace Monopoly {
             }
         }
 
-        bool cpi = nextPlayer;
+        int cpi = nextPlayer;
 
         do {
             nextPlayer++;
