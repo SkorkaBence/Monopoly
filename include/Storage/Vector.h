@@ -40,6 +40,10 @@ namespace sbl {
             }
         }
 
+        ~vector() {
+            deleteArray();
+        }
+
         bool clear() {
             deleteArray();
 
