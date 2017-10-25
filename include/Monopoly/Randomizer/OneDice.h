@@ -7,6 +7,7 @@ namespace Monopoly {
 
     class OneDice : public Randomizer {
     public:
+        static unsigned int current_seed;
         OneDice();
         void loadRandomizer(std::istream& in);
         int DiceRoll();

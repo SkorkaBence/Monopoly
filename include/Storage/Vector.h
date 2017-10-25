@@ -63,6 +63,14 @@ namespace sbl {
             return true;
         }
 
+        T& back() {
+            return arr[real_size - 1];
+        }
+
+        const T& back() const {
+            return arr[real_size - 1];
+        }
+
         bool pop_back() {
             if (real_size == 1) {
                 clear();
@@ -133,6 +141,11 @@ namespace sbl {
             }
             out << "}";
         }
+
+        bool empty() const {
+            return (real_size == 0);
+        }
+
     };
 
 }

@@ -4,8 +4,12 @@
 
 namespace Monopoly {
 
+    unsigned int OneDice::current_seed = time(NULL);
+
     OneDice::OneDice() {
-        srand(time(NULL));
+        srand(current_seed);
+        current_seed = rand();
+        srand(current_seed);
     }
 
     void OneDice::loadRandomizer(std::istream& in) {

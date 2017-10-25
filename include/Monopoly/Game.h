@@ -15,6 +15,7 @@ namespace Monopoly {
         Randomizer* random = nullptr;
         sbl::vector<Field*> fields;
         sbl::vector<Player*> players;
+        sbl::vector<Player*> losses;
 
         int nextPlayer = 0;
         int tick = 0;
@@ -25,6 +26,7 @@ namespace Monopoly {
         ~Game();
         bool gameTick();
         void printGame(Printer& printer);
+        sbl::vector<Player*> getLoseList() const;
     };
 
 }

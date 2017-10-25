@@ -13,13 +13,18 @@
 #include <fstream>
 
 namespace Monopoly {
-
     Game::Game(std::string filename) {
         loadGame(filename);
     }
 
     Game::~Game() {
         delete random;
+        for (int i = 0; i < fields.size(); i++) {
+            delete fields[i];
+        }
+        for (int i = 0; i < players.size(); i++) {
+            delete players[i];
+        }
     }
 
     void Game::loadGame(std::string filename) {
@@ -120,6 +125,8 @@ namespace Monopoly {
 
         if (!currentPlayer->isStillPlaying()) {
             // kiesett a jatekbol
+            losses.push_back(currentPlayer);
+
             for (int i = 0; i < fields.size(); i++) {
                 if(Property* v = dynamic_cast<Property*>(fields[i])) {
                     if (v->isMine(currentPlayer)) {
@@ -131,11 +138,18 @@ namespace Monopoly {
 
         int cpi = nextPlayer;
 
-        do {
-            nextPlayer++;
-            while (nextPlayer >= players.size()) {
-                nextPlayer -= players.size();
+        int playercount = 0;
+        for (int i = 0; i < players.size(); i++) {
+            if (players[i]->isStillPlaying()) {
+                playercount++;
             }
+        }
+        if (playercount < 2) {
+            return false;
+        }
+
+        do {
+            nextPlayer = (nextPlayer + 1) % players.size();
             if (cpi == nextPlayer) {
                 return false;
             }
@@ -239,6 +253,16 @@ namespace Monopoly {
         for (int i = 0; i < lines.size(); i++) {
             printer.writeln(lines[i]);
         }
+    }
+
+    sbl::vector<Player*> Game::getLoseList() const {
+        sbl::vector<Player*> ret = losses;
+        for (int i = 0; i < players.size(); i++) {
+            if (players[i]->isStillPlaying()) {
+                ret.push_back(players[i]);
+            }
+        }
+        return ret;
     }
 
 }

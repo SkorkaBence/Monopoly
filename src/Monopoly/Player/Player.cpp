@@ -4,7 +4,6 @@
 namespace Monopoly {
 
     Player::Player(std::string nm, int start_money) : name(nm), money(start_money) {
-
     }
 
     Player::~Player() {
@@ -21,6 +20,7 @@ namespace Monopoly {
 
     void Player::setBrain(AI* aiptr) {
         brain = aiptr;
+        brain->init(this);
         brain->clearSpendings(money);
     }
 
@@ -30,7 +30,7 @@ namespace Monopoly {
         money += moneychange;
 
         if(Property* v = dynamic_cast<Property*>(field)) {
-            if (moneychange > 0) {
+            if (moneychange != 0) {
                 v->getOwner()->changeMoney(-moneychange);
             }
             if (v->isMine(this)) {
