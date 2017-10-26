@@ -6,6 +6,7 @@
 #include "Monopoly/Fields/Property.h"
 #include "Monopoly/Fields/Service.h"
 #include "Monopoly/Fields/Luck.h"
+#include "Monopoly/Fields/Chance.h"
 #include "Monopoly/Player/Player.h"
 #include "Monopoly/Player/AI/Greedy.h"
 #include "Monopoly/Player/AI/Careful.h"
@@ -67,8 +68,10 @@ namespace Monopoly {
                 field = new Service;
             } else if (type == "luck") {
                 field = new Luck;
+            } else if (type == "chance") {
+                field = new Chance;
             } else {
-                throw MonopolyException("Invalid field type");
+                throw MonopolyException("Invalid field type: (" + toStr(i) + ") " + type);
             }
 
             field->loadField(file);
@@ -169,13 +172,12 @@ namespace Monopoly {
 
         for (int i = 0; i < fields.size(); i++) {
 
-            std::string line_0 = "UNKNOWN FI";
+            std::string line_0 = fields[i]->getShortName();
             std::string line_1 = "";
             std::string line_2 = "";
-            std::string line_3 = "";
+            std::string line_3 = toStr(fields[i]->moneyChange());
 
             if(Property* v = dynamic_cast<Property*>(fields[i])) {
-                line_0 = "PROPERTY";
                 line_3 = "-" + toStr(v->getUpgradePrice()) + "/" + toStr(v->moneyChange());
                 if (v->isSold()) {
                     /*line_2 = "SOLD";
@@ -185,20 +187,12 @@ namespace Monopoly {
                     line_2 = v->getOwner()->getName();
                 }
             }
-            if(Service* v = dynamic_cast<Service*>(fields[i])) {
-                line_0 = "SERVICE";
-                line_3 = "-" + toStr(v->getServiceFee());
-            }
-            if(Luck* v = dynamic_cast<Luck*>(fields[i])) {
-                line_0 = "LUCK";
-                line_3 = "+" + toStr(v->getGift());
-            }
 
             line_1 = "";
             for (int j = 0; j < players.size(); j++) {
                 if (players[j]->isStillPlaying()) {
                     if (players[j]->getCurrentPosition() == i) {
-                        line_1 += "(" + players[j]->getName() + ")";
+                        line_1 += "(" + players[j]->getShortName() + ")";
                     }
                 }
             }

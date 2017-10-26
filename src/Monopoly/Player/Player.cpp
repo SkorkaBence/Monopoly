@@ -14,6 +14,10 @@ namespace Monopoly {
         return name;
     }
 
+    std::string Player::getShortName() {
+        return name.substr(0, 5);
+    }
+
     int Player::getMoney() {
         return money;
     }

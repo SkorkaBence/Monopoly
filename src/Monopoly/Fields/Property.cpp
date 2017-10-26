@@ -8,6 +8,7 @@ namespace Monopoly {
     }
 
     void Property::loadField(std::istream& in) {
+        in >> name;
         in >> price;
         in >> housePrice;
         in >> basicTrespassingFee;

@@ -19,6 +19,7 @@ namespace Monopoly {
         ~Player();
 
         std::string getName();
+        std::string getShortName();
         int getMoney();
         void setBrain(AI* aiptr);
         void stepTo(int pos, Field* field);

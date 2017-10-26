@@ -7,6 +7,7 @@ namespace Monopoly {
     }
 
     void Luck::loadField(std::istream& in) {
+        in >> name;
         in >> price;
     }
 

@@ -7,6 +7,7 @@ namespace Monopoly {
     }
 
     void Service::loadField(std::istream& in) {
+        in >> name;
         in >> price;
     }
 
