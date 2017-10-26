@@ -6,10 +6,14 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/Randomizer/OneDice.h"
 
+//#define RUN_STATS
+
 int main() {
     Monopoly::Printer print;
 
     print.setColorEnabled(true);
+
+#ifdef RUN_STATS
 
     std::map<std::string, int> pontok;
     std::map<std::string, int> gyozelmek;
@@ -20,7 +24,7 @@ int main() {
     gyozelmek["Greedy"] = 0;
     gyozelmek["Tacti"] = 0;
 
-    for (int i = 0; i < 1000000; i++) {
+    for (int i = 0; i < 100000; i++) {
         try {
             Monopoly::Game game("testgame");
             while (game.gameTick()) {}
@@ -48,13 +52,14 @@ int main() {
         print.writeln(it->first + ": " + Monopoly::toStr(it->second));
     }
 
-    /*
+#else
+
     try {
-        Monopoly::Game game("testgame");
+        Monopoly::Game game("real");
         print.writeln("Game Loaded!");
 
         do {
-            game.printGame(print);
+            //game.printGame(print);
         } while (game.gameTick());
         game.printGame(print);
 
@@ -68,5 +73,6 @@ int main() {
         print.changeColor(Monopoly::BrightRed);
         print.writeln("Error: " + e.getMessage());
     }
-    */
+
+#endif
 }
