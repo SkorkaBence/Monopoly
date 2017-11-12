@@ -144,6 +144,7 @@ namespace sbl {
                 out << ", " << (int)vect[i];
             }
             out << "}";
+            return out;
         }
 
         bool empty() const {

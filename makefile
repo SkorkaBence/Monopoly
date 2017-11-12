@@ -2,7 +2,7 @@ SRC     = ./src
 IDIR    = ./include
 TEMPDIR = temp
 CXX     = g++
-CFLAGS  = -I$(IDIR) -std=c++11
+CFLAGS  = -I$(IDIR) -std=c++11 -Wall
 LDFLAGS = -I$(IDIR) -std=c++11
 FILES   = main.cpp Storage/Vector.cpp Storage/VectorException.cpp Monopoly/MonopolyException.cpp Monopoly/Game.cpp Monopoly/Printer/Printer.cpp Monopoly/Randomizer/OneDice.cpp Monopoly/Randomizer/PreDefined.cpp Monopoly/Fields/Field.cpp Monopoly/Fields/Property.cpp Monopoly/Fields/Service.cpp Monopoly/Fields/Luck.cpp Monopoly/Fields/Chance.cpp Monopoly/Player/Player.cpp Monopoly/Player/AI/AI.cpp Monopoly/Player/AI/Greedy.cpp Monopoly/Player/AI/Careful.cpp Monopoly/Player/AI/Tactician.cpp
 TARGET  = run

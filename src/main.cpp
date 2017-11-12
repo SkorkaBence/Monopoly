@@ -59,7 +59,7 @@ int main() {
         print.writeln("Game Loaded!");
 
         do {
-            //game.printGame(print);
+            game.printGame(print);
         } while (game.gameTick());
         game.printGame(print);
 
