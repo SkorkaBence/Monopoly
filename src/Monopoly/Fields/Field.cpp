@@ -3,6 +3,10 @@
 
 namespace Monopoly {
 
+    Field::~Field() {
+
+    }
+
     std::string Field::getName() {
         return name;
     }
@@ -14,5 +18,7 @@ namespace Monopoly {
             return name;
         }
     }
+
+    void Field::reset(Player* player) {}
 
 }

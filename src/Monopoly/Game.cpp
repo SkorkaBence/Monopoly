@@ -11,6 +11,7 @@
 #include "Monopoly/Player/AI/Greedy.h"
 #include "Monopoly/Player/AI/Careful.h"
 #include "Monopoly/Player/AI/Tactician.h"
+#include "Monopoly/Printer/Printer.h"
 #include <fstream>
 
 namespace Monopoly {
@@ -20,10 +21,10 @@ namespace Monopoly {
 
     Game::~Game() {
         delete random;
-        for (int i = 0; i < fields.size(); i++) {
+        for (unsigned int i = 0; i < fields.size(); i++) {
             delete fields[i];
         }
-        for (int i = 0; i < players.size(); i++) {
+        for (unsigned int i = 0; i < players.size(); i++) {
             delete players[i];
         }
     }
@@ -119,30 +120,26 @@ namespace Monopoly {
 
         Player* currentPlayer = players[nextPlayer];
         int diceRoll = random->DiceRoll();
-        int newpos = currentPlayer->getCurrentPosition() + diceRoll;
+        unsigned int newpos = currentPlayer->getCurrentPosition() + diceRoll;
         while (newpos >= fields.size()) {
             currentPlayer->finishedRound();
             newpos -= fields.size();
         }
-        currentPlayer->stepTo(newpos, fields[newpos]);
+
+        currentPlayer->setCurrentPosition(newpos);
+        fields[newpos]->steppedOn(currentPlayer);
 
         if (!currentPlayer->isStillPlaying()) {
             // kiesett a jatekbol
-            losses.push_back(currentPlayer);
-
-            for (int i = 0; i < fields.size(); i++) {
-                if(Property* v = dynamic_cast<Property*>(fields[i])) {
-                    if (v->isMine(currentPlayer)) {
-                        v->reset();
-                    }
-                }
+            for (unsigned int i = 0; i < fields.size(); i++) {
+                fields[i]->reset(currentPlayer);
             }
         }
 
         int cpi = nextPlayer;
 
         int playercount = 0;
-        for (int i = 0; i < players.size(); i++) {
+        for (unsigned int i = 0; i < players.size(); i++) {
             if (players[i]->isStillPlaying()) {
                 playercount++;
             }
@@ -159,104 +156,6 @@ namespace Monopoly {
         } while (!players[nextPlayer]->isStillPlaying());
 
         return true;
-    }
-
-    void Game::printGame(Printer& printer) {
-        printer.writeln("Tick " + toStr(tick) + ":");
-
-        int max_cells = 5;
-        int cell_width = 20;
-
-        sbl::vector<sbl::vector<std::string> > strings;
-        strings.resize(fields.size());
-
-        for (int i = 0; i < fields.size(); i++) {
-
-            std::string line_0 = fields[i]->getShortName();
-            std::string line_1 = "";
-            std::string line_2 = "";
-            std::string line_3 = toStr(fields[i]->moneyChange());
-
-            if(Property* v = dynamic_cast<Property*>(fields[i])) {
-                line_3 = "-" + toStr(v->getUpgradePrice()) + "/" + toStr(v->moneyChange());
-                if (v->isSold()) {
-                    /*line_2 = "SOLD";
-                    if (v->hasHouse()) {
-                        line_2 += " + HSE";
-                    }*/
-                    line_2 = v->getOwner()->getName();
-                }
-            }
-
-            line_1 = "";
-            for (int j = 0; j < players.size(); j++) {
-                if (players[j]->isStillPlaying()) {
-                    if (players[j]->getCurrentPosition() == i) {
-                        line_1 += "(" + players[j]->getShortName() + ")";
-                    }
-                }
-            }
-
-            strings[i].push_back(printer.getColorChar(BrightRed) + line_0 + printer.getColorChar(White));
-            strings[i].push_back(printer.getColorChar(BrightBlue) + line_1 + printer.getColorChar(White));
-            strings[i].push_back(printer.getColorChar(BrightYellow) + line_2 + printer.getColorChar(White));
-            strings[i].push_back(printer.getColorChar(BrightCyan) + line_3 + printer.getColorChar(White));
-        }
-
-        sbl::vector<std::string> lines;
-
-        int line_index_start = 0;
-        int string_indexing_starts = 0;
-
-        while (string_indexing_starts < strings.size()) {
-            lines.resize(lines.size() + 6);
-            int limit = string_indexing_starts + max_cells;
-            if (limit > strings.size()) {
-                limit = strings.size();
-            }
-            for (int i = string_indexing_starts; i < limit; i++) {
-                lines[line_index_start] += "/";
-                for (int k = 0; k < cell_width; k++) {
-                    lines[line_index_start] += "-";
-                }
-                lines[line_index_start] += "\\";
-                for (int j = 0; j < strings[i].size(); j++) {
-                    std::string ls = strings[i][j];
-                    int jobb = true;
-                    while (ls.length() < cell_width + 2 * printer.colorCharLength()) {
-                        if (jobb) {
-                            ls = ls + " ";
-                        } else {
-                            ls = " " + ls;
-                        }
-                        jobb = !jobb;
-                    }
-                    //ls += toStr(ls.length());
-                    lines[line_index_start + j + 1] += "|" + ls + "|";
-                }
-                lines[line_index_start + 5] += "\\";
-                for (int k = 0; k < cell_width; k++) {
-                    lines[line_index_start + 5] += "-";
-                }
-                lines[line_index_start + 5] += "/";
-            }
-            string_indexing_starts += max_cells;
-            line_index_start += 6;
-        }
-
-        for (int i = 0; i < lines.size(); i++) {
-            printer.writeln(lines[i]);
-        }
-    }
-
-    sbl::vector<Player*> Game::getLoseList() const {
-        sbl::vector<Player*> ret = losses;
-        for (int i = 0; i < players.size(); i++) {
-            if (players[i]->isStillPlaying()) {
-                ret.push_back(players[i]);
-            }
-        }
-        return ret;
     }
 
 }

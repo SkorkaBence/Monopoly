@@ -21,14 +21,14 @@ namespace Monopoly {
     public:
         Property();
         void loadField(std::istream& in);
-        int moneyChange();
+        virtual int moneyChange() override;
         int getUpgradePrice();
         void buy(Player* buyer);
-        void reset();
-        bool isMine(Player* me);
+        virtual void reset(Player* player) override;
         bool isSold();
         bool hasHouse();
         Player* getOwner();
+        virtual void steppedOn(Player* player) override;
     };
 
 }

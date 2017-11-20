@@ -7,6 +7,7 @@ namespace Monopoly {
 
     class Randomizer {
     public:
+        virtual ~Randomizer() {}
         virtual void loadRandomizer(std::istream& in) = 0;
         virtual int DiceRoll() = 0;
     };

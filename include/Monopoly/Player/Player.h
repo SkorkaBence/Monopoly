@@ -9,11 +9,10 @@ namespace Monopoly {
 
     class Player {
     private:
-        bool isPlaying = true;
         std::string name;
         int money = 0;
         AI* brain = nullptr;
-        int position = -1;
+        unsigned int position = -1;
     public:
         Player(std::string nm, int start_money);
         ~Player();
@@ -22,9 +21,10 @@ namespace Monopoly {
         std::string getShortName();
         int getMoney();
         void setBrain(AI* aiptr);
-        void stepTo(int pos, Field* field);
-        int getCurrentPosition();
-        bool isStillPlaying();
+        AI* getBrain() const;
+        void setCurrentPosition(unsigned int pos);
+        unsigned int getCurrentPosition() const;
+        bool isStillPlaying() const;
         void finishedRound();
         void changeMoney(int add);
     };

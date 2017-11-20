@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sstream>
+#include "Monopoly/Game.h"
 
 namespace Monopoly {
 
@@ -38,9 +39,11 @@ namespace Monopoly {
         void writeln(std::string str);
         void rainbow(std::string str);
         std::string getColorChar(ConsoleColors color);
-        int colorCharLength();
+        unsigned int colorCharLength();
 
         void setColorEnabled(bool status);
+
+        void printGameState(const Game& game);
     };
 
     template<typename T>

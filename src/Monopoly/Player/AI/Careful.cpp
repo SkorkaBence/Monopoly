@@ -1,4 +1,5 @@
 #include "Monopoly/Player/AI/Careful.h"
+#include "Monopoly/Player/Player.h"
 
 namespace Monopoly {
 

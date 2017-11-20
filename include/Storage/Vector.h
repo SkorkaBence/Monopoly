@@ -35,7 +35,7 @@ namespace sbl {
             reserved_size = 0;
 
             this->resize(copythis.size());
-            for (int i = 0; i < copythis.size(); i++) {
+            for (unsigned int i = 0; i < copythis.size(); i++) {
                 arr[i] = copythis.arr[i];
             }
         }

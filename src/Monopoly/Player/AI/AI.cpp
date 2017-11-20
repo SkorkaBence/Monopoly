@@ -3,6 +3,10 @@
 
 namespace Monopoly {
 
+    AI::~AI() {
+
+    }
+
     void AI::init(Player* owner) {
         player = owner;
     }

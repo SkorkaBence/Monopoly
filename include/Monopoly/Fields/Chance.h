@@ -2,6 +2,7 @@
 #define H_MONOPOLY_CHANCE
 
 #include "Monopoly/Fields/Field.h"
+#include "Monopoly/Player/Player.h"
 #include <vector>
 #include <iostream>
 
@@ -13,7 +14,8 @@ namespace Monopoly {
         Chance();
         void loadField(std::istream& in);
 
-        int moneyChange();
+        virtual int moneyChange() override;
+        virtual void steppedOn(Player* player) override;
     };
 
 }

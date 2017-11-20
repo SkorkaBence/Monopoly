@@ -11,12 +11,12 @@ namespace Monopoly {
         in >> price;
     }
 
-    int Luck::getGift() {
+    int Luck::moneyChange() {
         return price;
     }
 
-    int Luck::moneyChange() {
-        return price;
+    void Luck::steppedOn(Player* player) {
+        player->changeMoney(price);
     }
 
 }

@@ -50,14 +50,12 @@ namespace Monopoly {
         }
     }
 
-    void Property::reset() {
-        sold = false;
-        owner = nullptr;
-        souldHouse = false;
-    }
-
-    bool Property::isMine(Player* me) {
-        return (!sold) || (owner == me);
+    void Property::reset(Player* player) {
+        if (player == owner) {
+            sold = false;
+            owner = nullptr;
+            souldHouse = false;
+        }
     }
 
     bool Property::isSold() {
@@ -70,6 +68,23 @@ namespace Monopoly {
 
     Player* Property::getOwner() {
         return owner;
+    }
+
+    void Property::steppedOn(Player* player) {
+        if (!sold || owner == player) {
+            int upgradePrice = getUpgradePrice();
+            if (upgradePrice > 0) {
+                AI* brain = player->getBrain();
+                if (brain->confirmPurchase(upgradePrice)) {
+                    buy(player);
+                    player->changeMoney(-upgradePrice);
+                }
+            }
+        } else {
+            int mc = moneyChange();
+            owner->changeMoney(mc);
+            player->changeMoney(-mc);
+        }
     }
 
 }

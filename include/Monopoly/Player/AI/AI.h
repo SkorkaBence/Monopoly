@@ -13,6 +13,7 @@ namespace Monopoly {
 
         Player* player;
     public:
+        virtual ~AI();
         void spendMoney(int mn);
         void clearSpendings(int money);
         void init(Player* owner);

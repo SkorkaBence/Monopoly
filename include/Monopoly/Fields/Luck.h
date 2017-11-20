@@ -2,6 +2,7 @@
 #define H_MONOPOLY_LUCK
 
 #include "Monopoly/Fields/Field.h"
+#include "Monopoly/Player/Player.h"
 #include <iostream>
 
 namespace Monopoly {
@@ -13,8 +14,8 @@ namespace Monopoly {
         Luck();
         void loadField(std::istream& in);
 
-        int getGift();
-        int moneyChange();
+        virtual int moneyChange() override;
+        virtual void steppedOn(Player* player) override;
     };
 
 }

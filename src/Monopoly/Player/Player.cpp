@@ -28,40 +28,16 @@ namespace Monopoly {
         brain->clearSpendings(money);
     }
 
-    void Player::stepTo(int pos, Field* field) {
+    void Player::setCurrentPosition(unsigned int pos) {
         position = pos;
-        int moneychange = field->moneyChange();
-        money += moneychange;
-
-        if(Property* v = dynamic_cast<Property*>(field)) {
-            if (moneychange != 0) {
-                v->getOwner()->changeMoney(-moneychange);
-            }
-            if (v->isMine(this)) {
-                int upgradePrice = v->getUpgradePrice();
-                if (upgradePrice > 0) {
-                    // upgradable
-                    if (brain != nullptr) {
-                        if (brain->confirmPurchase(upgradePrice)) {
-                            v->buy(this);
-                            money -= upgradePrice;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (money < 0) {
-            isPlaying = false;
-        }
     }
 
-    int Player::getCurrentPosition() {
+    unsigned int Player::getCurrentPosition() const {
         return position;
     }
 
-    bool Player::isStillPlaying() {
-        return isPlaying;
+    bool Player::isStillPlaying() const {
+        return money > 0;
     }
 
     void Player::finishedRound() {
@@ -72,6 +48,10 @@ namespace Monopoly {
 
     void Player::changeMoney(int add) {
         money += add;
+    }
+
+    AI* Player::getBrain() const {
+        return brain;
     }
 
 }

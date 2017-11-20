@@ -14,4 +14,8 @@ namespace Monopoly {
         return 0;
     }
 
+    void Chance::steppedOn(Player* player) {
+
+    }
+
 }

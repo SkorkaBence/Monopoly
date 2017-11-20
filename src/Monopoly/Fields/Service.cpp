@@ -11,12 +11,12 @@ namespace Monopoly {
         in >> price;
     }
 
-    int Service::getServiceFee() {
-        return price;
-    }
-
     int Service::moneyChange() {
         return -1 * price;
+    }
+
+    void Service::steppedOn(Player* player) {
+        player->changeMoney(-price);
     }
 
 }
