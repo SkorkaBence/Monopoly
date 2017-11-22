@@ -6,7 +6,7 @@
 #include "Monopoly/Game.h"
 #include "Monopoly/Randomizer/OneDice.h"
 
-//#define TEST_RUN
+#define TEST_RUN
 
 #ifdef TEST_RUN
 #include "tests.hpp"
